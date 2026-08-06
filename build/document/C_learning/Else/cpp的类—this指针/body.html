@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>F6的diffset 与 二分思想</title>
+<title>cpp的类—this指针</title>
 <style>
 :root {
   --text: #1f2937;
@@ -230,28 +230,37 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <body>
 <main class="page">
 <header class="page-header">
-<h1 class="page-title">F6的diffset 与 二分思想</h1>
-<p class="page-home"><a href="../main.html">返回</a></p>
+<h1 class="page-title">cpp的类—this指针</h1>
+<p class="page-home"><a href="../../main.html">返回</a></p>
 </header>
 
-<p>本节建议至少学习到《一生一芯》F6中后期的同学进行阅读。</p>
-<h2><strong>为什么会有二分？</strong></h2>
+<h2>什么是 <code>this</code> 指针？</h2>
+<p>简单来说，<code>this</code> 指针就是一个<strong>隐形的“自己”</strong>。</p>
+<p>在 C++ 中，一个类（或结构体）可以实例化出成千上万个对象。为了节省内存，所有对象是<strong>共享同一份成员函数代码</strong>的。那么问题来了：当一个成员函数被调用时，它怎么知道是谁在调用它？</p>
+<pre><code class="language-cpp"><span class="k">class</span><span class="w"> </span><span class="nc">Player</span><span class="w"> </span><span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">hp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">takeDamage</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">damage</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// 编译器实际上看它是这样的：this-&gt;hp -= damage;</span>
+<span class="w">        </span><span class="n">hp</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">damage</span><span class="p">;</span><span class="w"> </span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="n">Player</span><span class="w"> </span><span class="n">p1</span><span class="p">;</span>
+<span class="n">Player</span><span class="w"> </span><span class="n">p2</span><span class="p">;</span>
+
+<span class="n">p1</span><span class="p">.</span><span class="n">takeDamage</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span><span class="w"> </span><span class="c1">// 怎么知道扣的是 p1 的血而不是 p2 的？</span>
+</code></pre><p>另一个理解：python 的类里面的函数传参、实例属性强制(显式)写<code>self</code>（不写self的属性是类属性，共用于一个类的所有实例，一个实例改了这个类属性，别的也会跟着改（你猜我怎么知道的）</p>
+<p>当你调用 <code>p1.takeDamage(20)</code> 时，编译器在幕后偷偷做了一件事：它把 <code>p1</code> 的地址作为一个隐藏参数传给了函数。这个隐藏的参数，在函数内部就叫做 <strong><code>this</code> 指针</strong>。(依据：<code>___________</code>)</p>
 <ul>
-<li>太懒太麻烦了不想一个一个数，于是折半查找；（二分法近似求根）</li>
+<li><strong>核心结论</strong>：<code>this</code> 是一个指向“当前调用该函数的对象”的指针。谁调用了这个函数，<code>this</code> 就指向谁。</li>
 </ul>
-<h2><strong>折半查找解放思想，为什么生活中不经常使用？</strong></h2>
-<ul>
-<li>数据通常是无序的，不能你说折半查找就一定能找到；</li>
-<li>折半查找的前提之一：被查找对象有序。被查找对象可以是排序后的数组，可以是单峰函数(三分法)，可以是<strong>答案</strong>（也就是对答案二分）。</li>
-</ul>
-<h2><strong>对答案二分</strong></h2>
-<p>当我们拿到diffset.txt的时候，会看到程序全周期的寄存器变化情况，方便我们查看是哪一条指令导致结果出错。我们或许会从头找到尾，运气好的几十上百周期能定位到，运气不好的就一直定位不到。</p>
-<p>为了偷懒，我们可以用二分的思想。先取一个周期数，让机器快速运行到这个周期（机器运行太快了，时间忽略不计），发现错了，那么错误点一定在此以及在此之前发生。发现对了，那么错误点一定在此后面发生。可证折半查找的平均时间复杂度最优。</p>
-<p>也就是说，对于比对类找bug，我们不需要一个一个周期去手动check，而是选定周期，让机器快速去到这儿，看看会发生什么。</p>
-<h2><strong>为什么可以这样</strong></h2>
-<p>答案具有单调性。这里的“答案”指的是CPU运行出错的第一个周期数。
-排除“负负得正”的概率，前面错了后面也会跟着错，甚至越错也离谱。可以认为周期数越大，CPU运行的“出错值“越大，不会到某个周期突然就减小。也就是说“出错值”关于CPU运行周期数不严格单调递增。当“出错值”第一次大于等于一个阈值，那么就找到了答案。</p>
-<nav class="page-nav"><a class="nav-home" href="../main.html">返回</a></nav>
+<p>如果你写 this.hp，编译器会非常死板地理解为：“你想找 this 这个指针变量内部自带的 hp 属性。”</p>
+<p>但 this 只是一个普通的指针（类似一个 64 位的内存地址数字）(根本不是结构体），它内部根本没有一个叫 hp 的变量，于是编译器就会无情地报错：</p>
+<pre><code class="language-bash">........
+</code></pre><h1>Acknowledgement</h1>
+<p>感谢<code>___Blossilve_R__</code>大大的建议嗷w</p>
+<nav class="page-nav"><a class="nav-home" href="../../main.html">返回</a></nav>
 </main>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>字典树(tier)、0-1字典树（链表实现）</title>
+<title>练习15：指针</title>
 <style>
 :root {
   --text: #1f2937;
@@ -230,14 +230,25 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <body>
 <main class="page">
 <header class="page-header">
-<h1 class="page-title">字典树(tier)、0-1字典树（链表实现）</h1>
-<p class="page-home"><a href="../main.html">返回</a></p>
+<h1 class="page-title">练习15：指针</h1>
+<p class="page-home"><a href="../../main.html">返回</a></p>
 </header>
 
-<p><a href="https://www.luogu.com.cn/problem/P4551" target="_blank" rel="noopener">P4551 最长异或路径 - 洛谷</a>
-<a href="https://www.bilibili.com/video/BV1iazGB4ERs/?vd_source=ae779efe458301fec2a5f20513623287" target="_blank" rel="noopener">3 分钟搞懂字典树_哔哩哔哩_bilibili</a></p>
-<h1>一个数用二进制表示时，可以视为一个字符串，然后用字典树。</h1>
-<nav class="page-nav"><a class="nav-home" href="../main.html">返回</a></nav>
+<p>指针的初始化：</p>
+<pre><code class="language-c"><span class="c1">//对于地址：</span>
+<span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x5ffe60</span><span class="p">;</span><span class="w"> </span><span class="c1">//让指针指向&quot;0x5ffe60&quot;这个位置，这个位置可以是空闲or被占用；但是由于权限与安全限制，不能直接指向并且写入下面的值</span>
+
+<span class="c1">//可以这样写：</span>
+<span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="c1">//申请一块4bit的空间，malloc函数返回这个空间的首位bit的地址，这里将无类型指针转为 int* 让data接收</span>
+<span class="c1">//or </span>
+<span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">))</span><span class="w"> </span><span class="c1">//int类型占用4bit，所以sizeof(int) == 4</span>
+
+<span class="c1">//-----------------------------------------------</span>
+<span class="c1">//对于值：(不能直接读写未申请空间的地址)</span>
+<span class="o">*</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.14</span><span class="w"> </span><span class="c1">//让指针指向的某个地址的值赋值为3.14(事实上是先把3.14这个值赋值给type为double的隐藏变量，然后再把这个值截断传递给data指向的区域。)((可以理解为把这个区块0x5ffe60的比特赋值为 0b00000011 )</span>
+</code></pre><p>回顾：</p>
+<pre><code class="language-c"><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%p %p %d %p&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="o">*&amp;</span><span class="n">data</span><span class="p">)</span><span class="c1">//这里*&amp;data就是*(&amp;data)，取得&amp;data这一块地方的东西（指针），可以简单理解为&amp;*相互抵消</span>
+</code></pre><nav class="page-nav"><a class="nav-home" href="../../main.html">返回</a><a class="nav-next" href="../%E7%BB%83%E4%B9%A016/body.html" title="练习16：C语言的结构体">下一节 &rarr;</a></nav>
 </main>
 </body>
 </html>

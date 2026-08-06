@@ -231,7 +231,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <main class="page">
 <header class="page-header">
 <h1 class="page-title">小项目_matrix</h1>
-<p class="page-home"><a href="../main.html">返回</a></p>
+<p class="page-home"><a href="../../main.html">返回</a></p>
 </header>
 
 <p>一下是一份约100lines的代码：</p>
@@ -424,7 +424,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <p>可以理解为：</p>
 <pre><code class="language-c"><span class="kt">int</span><span class="w"> </span><span class="o">&amp;*</span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="n">rows</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cols</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">));</span>
 <span class="n">m</span><span class="o">-&gt;</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
-</code></pre><p><div class="img-wrap"><img src="../imgs/Pasted%20image%2020260706085943.png" alt="Pasted image 20260706085943" /></div></p>
+</code></pre><p><div class="img-wrap"><img src="../../imgs/Pasted%20image%2020260706085943.png" alt="Pasted image 20260706085943" /></div></p>
 <p>如果注释够多，我们也对矩阵定义熟悉的话，就可以知道matrix_create()可以创建一个矩阵，把开辟的空间data、row和col用结构体打包，方便管理和调用。</p>
 <hr />
 <h2>matrix_read()</h2>
@@ -434,7 +434,7 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <p>multiply：乘法。</p>
 <p>这里假设读者学过矩阵。我们看矩阵一般就是一个有行有列的数字阵。代码也是希望这么维护的，从row, col, <code>MATAT</code>都能看出来。这里维护一个二维矩阵，进行乘法。</p>
 <p>把变量k的for循环提到最外层，减少跳跃读取，增加缓存命中率。</p>
-<nav class="page-nav"><a class="nav-home" href="../main.html">返回</a></nav>
+<nav class="page-nav"><a class="nav-home" href="../../main.html">返回</a></nav>
 </main>
 </body>
 </html>

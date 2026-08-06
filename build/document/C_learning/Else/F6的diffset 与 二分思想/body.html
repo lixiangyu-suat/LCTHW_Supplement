@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>练习15：指针</title>
+<title>F6的diffset 与 二分思想</title>
 <style>
 :root {
   --text: #1f2937;
@@ -230,25 +230,28 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <body>
 <main class="page">
 <header class="page-header">
-<h1 class="page-title">练习15：指针</h1>
-<p class="page-home"><a href="../main.html">返回</a></p>
+<h1 class="page-title">F6的diffset 与 二分思想</h1>
+<p class="page-home"><a href="../../main.html">返回</a></p>
 </header>
 
-<p>指针的初始化：</p>
-<pre><code class="language-c"><span class="c1">//对于地址：</span>
-<span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x5ffe60</span><span class="p">;</span><span class="w"> </span><span class="c1">//让指针指向&quot;0x5ffe60&quot;这个位置，这个位置可以是空闲or被占用；但是由于权限与安全限制，不能直接指向并且写入下面的值</span>
-
-<span class="c1">//可以这样写：</span>
-<span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="c1">//申请一块4bit的空间，malloc函数返回这个空间的首位bit的地址，这里将无类型指针转为 int* 让data接收</span>
-<span class="c1">//or </span>
-<span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">))</span><span class="w"> </span><span class="c1">//int类型占用4bit，所以sizeof(int) == 4</span>
-
-<span class="c1">//-----------------------------------------------</span>
-<span class="c1">//对于值：(不能直接读写未申请空间的地址)</span>
-<span class="o">*</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.14</span><span class="w"> </span><span class="c1">//让指针指向的某个地址的值赋值为3.14(事实上是先把3.14这个值赋值给type为double的隐藏变量，然后再把这个值截断传递给data指向的区域。)((可以理解为把这个区块0x5ffe60的比特赋值为 0b00000011 )</span>
-</code></pre><p>回顾：</p>
-<pre><code class="language-c"><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%p %p %d %p&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="o">*&amp;</span><span class="n">data</span><span class="p">)</span><span class="c1">//这里*&amp;data就是*(&amp;data)，取得&amp;data这一块地方的东西（指针），可以简单理解为&amp;*相互抵消</span>
-</code></pre><nav class="page-nav"><a class="nav-next" href="%E7%BB%83%E4%B9%A016%EF%BC%9AC%E8%AF%AD%E8%A8%80%E7%9A%84%E7%BB%93%E6%9E%84%E4%BD%93.html" title="练习16：C语言的结构体">下一节 &rarr;</a><a class="nav-home" href="../main.html">返回</a></nav>
+<p>本节建议至少学习到《一生一芯》F6中后期的同学进行阅读。</p>
+<h2><strong>为什么会有二分？</strong></h2>
+<ul>
+<li>太懒太麻烦了不想一个一个数，于是折半查找；（二分法近似求根）</li>
+</ul>
+<h2><strong>折半查找解放思想，为什么生活中不经常使用？</strong></h2>
+<ul>
+<li>数据通常是无序的，不能你说折半查找就一定能找到；</li>
+<li>折半查找的前提之一：被查找对象有序。被查找对象可以是排序后的数组，可以是单峰函数(三分法)，可以是<strong>答案</strong>（也就是对答案二分）。</li>
+</ul>
+<h2><strong>对答案二分</strong></h2>
+<p>当我们拿到diffset.txt的时候，会看到程序全周期的寄存器变化情况，方便我们查看是哪一条指令导致结果出错。我们或许会从头找到尾，运气好的几十上百周期能定位到，运气不好的就一直定位不到。</p>
+<p>为了偷懒，我们可以用二分的思想。先取一个周期数，让机器快速运行到这个周期（机器运行太快了，时间忽略不计），发现错了，那么错误点一定在此以及在此之前发生。发现对了，那么错误点一定在此后面发生。可证折半查找的平均时间复杂度最优。</p>
+<p>也就是说，对于比对类找bug，我们不需要一个一个周期去手动check，而是选定周期，让机器快速去到这儿，看看会发生什么。</p>
+<h2><strong>为什么可以这样</strong></h2>
+<p>答案具有单调性。这里的“答案”指的是CPU运行出错的第一个周期数。
+排除“负负得正”的概率，前面错了后面也会跟着错，甚至越错也离谱。可以认为周期数越大，CPU运行的“出错值“越大，不会到某个周期突然就减小。也就是说“出错值”关于CPU运行周期数不严格单调递增。当“出错值”第一次大于等于一个阈值，那么就找到了答案。</p>
+<nav class="page-nav"><a class="nav-home" href="../../main.html">返回</a></nav>
 </main>
 </body>
 </html>

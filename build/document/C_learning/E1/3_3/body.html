@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>讲义首页</title>
+<title>3-3_函数——参数的传递</title>
 <style>
 :root {
   --text: #1f2937;
@@ -230,23 +230,122 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <body>
 <main class="page">
 <header class="page-header">
-<h1 class="page-title">讲义首页</h1>
+<h1 class="page-title">3-3_函数——参数的传递</h1>
+<p class="page-home"><a href="../../main.html">返回</a></p>
 </header>
 
-<p>本手册面向计算机硬件方向的学生，对硬件感兴趣的同学和学习C/C++的新生。</p>
-<p>学习计算机硬件需要毅力和耐心，以及浓厚的兴趣，而不是速学速通。因此该讲义会偏”细水长流“，尽量把涉及的拓展知识讲一讲。</p>
-<h1>E1-Linux C编程一站式学习</h1>
-<ul>
-<li><a href="E1-Linux%20C%E7%BC%96%E7%A8%8B%E4%B8%80%E7%AB%99%E5%BC%8F%E5%AD%A6%E4%B9%A0/3-3_%E5%87%BD%E6%95%B0%E2%80%94%E2%80%94%E5%8F%82%E6%95%B0%E7%9A%84%E4%BC%A0%E9%80%92.html">3-3_函数——参数的传递</a></li>
-<li></li>
-</ul>
-<h1>E4-笨方法学C</h1>
-<ul>
-<li><a href="E4-%E7%AC%A8%E6%96%B9%E6%B3%95%E5%AD%A6C/%E7%BB%83%E4%B9%A015%EF%BC%9A%E6%8C%87%E9%92%88.html">练习15：指针</a></li>
-</ul>
-<h2>其他</h2>
-<p><a href="Else/%E7%9B%AE%E5%BD%95.html">目录</a></p>
+<h1>习题1</h1>
+<p>在调用函数时，参数<code>通过复制（默认）</code>或<code>传递其引用</code>来传递。</p>
+<pre><code class="language-c"><span class="kt">void</span><span class="w"> </span><span class="nf">increment</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
 
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">	</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">	</span><span class="n">increment</span><span class="p">(</span><span class="n">i</span><span class="p">);</span><span class="w"> </span><span class="cm">/* i now becomes 2 */</span>
+<span class="w">	</span><span class="n">increment</span><span class="p">(</span><span class="n">j</span><span class="p">);</span><span class="w"> </span><span class="cm">/* j now becomes 3 */</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><div class="table-wrap"><table>
+<thead>
+<tr>
+  <th>序号</th>
+  <th>操作（对应行）</th>
+  <th>内存中的变量</th>
+  <th></th>
+  <th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>1</td>
+  <td>声明并复制i, j</td>
+  <td>i=1, j=2</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>increment(i)--入栈</td>
+  <td>i=1, j=2, increment_x=1</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>increment(i)--执行自加</td>
+  <td>i=1, j=2, increment_x=2</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td>4</td>
+  <td>increment(i)--出栈</td>
+  <td>i=1, j=2</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td>5</td>
+  <td>increment(j)--入栈</td>
+  <td>i=1, j=2, increment_x=1</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td>6</td>
+  <td>increment(j)--执行自加</td>
+  <td>i=1, j=2, increment_x=2</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td>7</td>
+  <td>increment(j)--出栈</td>
+  <td>i=1, j=2</td>
+  <td></td>
+  <td></td>
+</tr>
+<tr>
+  <td>8</td>
+  <td>return 0; 之后</td>
+  <td>空</td>
+  <td></td>
+  <td></td>
+</tr>
+</tbody>
+</table>
+</div><h1>习题2</h1>
+<p>如果在一个程序中调用了<code>printf</code>函数却不包含头文件，例如<code>int main(void) { printf(&quot;\n&quot;); }</code>，编译时会报警告：<code>warning: incompatible implicit declaration of built-in function ‘printf’</code>。请分析错误原因。</p>
+<ul>
+<li><p><strong>头文件与实现的区分：</strong> 我们要明确一点：<code>&lt;stdio.h&gt;</code> 头文件中只包含了 <code>printf</code> 的<strong>函数声明（原型）</strong>，用于编译期的类型检查；而 <code>printf</code> 的真正<strong>代码实现</strong>位于系统的标准C库（libc）中，由链接器负责接入。</p>
+</li>
+<li><p><strong>早期C标准（C89/C90）的处理机制 —— 为什么是 Warning？</strong>
+<a href="https://hypothes.is/a/A0jzssywEemSol95zyJm3w" target="_blank" rel="noopener">Hypothesis</a></p>
+<ul>
+<li><p><strong>隐式声明（Implicit Declaration）：</strong> 当编译器看到一个没有提前声明的函数时，它不会立刻报错，而是按照规则自动生成一个“隐式声明”，即假定该函数返回 <code>int</code> 类型，且不限制参数类型（类似于 <code>int printf();</code>）。</p>
+</li>
+<li><p><strong>内建函数冲突（Built-in Function）：</strong> 现代编译器（如GCC）为了优化性能，内部自带了 <code>printf</code> 等常用标准库函数的模型（即内建函数）。编译器内部知道 <code>printf</code> 的真实原型是 <code>int printf(const char * restrict format, ...);</code>。</p>
+</li>
+<li><p><strong>报错原因总结：</strong> 编译器自己生成的“隐式声明”，与它内部记录的“内建函数原型”在参数类型（比如缺乏 <code>restrict</code> 限定符和不定参数标识）上<strong>不兼容（incompatible）</strong>，因此抛出此特定警告。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>现代C标准（C99及以后）的变化 —— 为什么变成了 Error？</strong>
+<a href="https://www.cnblogs.com/litifeng/articles/5638574.html" target="_blank" rel="noopener">Linux C一站式编程习题答案 - 立体风 - 博客园</a></p>
+<ul>
+<li><p>现代C语言标准（C99开始，并在现代编译器如 GCC 14 / Clang 15 中严格执行）<strong>彻底废除了隐式函数声明</strong>。</p>
+</li>
+<li><p>在现代环境下编译相同的代码，不再是报警告，而是直接引发编译终止的<strong>致命错误 (Error)</strong>。报错信息通常为：<code>error: implicit declaration of function 'printf' is invalid in C99</code>（不允许隐式声明函数）。这就强制要求程序员在使用任何函数前，必须严格提供对应的头文件或显式声明，保障了代码的类型安全。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://www.open-std.org/jtc1/sc22/wg14/" target="_blank" rel="noopener">ISO/IEC JTC1/SC22/WG14 - C</a>
+<a href="https://www.open-std.org/jtc1/sc22/wg14/www/docs/n3096.pdf" target="_blank" rel="noopener">ISO/IEC 9899:2023</a></p>
+<nav class="page-nav"><a class="nav-home" href="../../main.html">返回</a><a class="nav-next" href="../5_2/body.html" title="5-2_函数——增量式开发">下一节 &rarr;</a></nav>
 </main>
 </body>
 </html>

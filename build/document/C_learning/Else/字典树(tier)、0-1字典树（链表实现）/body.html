@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>5-3_函数——递归</title>
+<title>字典树(tier)、0-1字典树（链表实现）</title>
 <style>
 :root {
   --text: #1f2937;
@@ -230,40 +230,14 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <body>
 <main class="page">
 <header class="page-header">
-<h1 class="page-title">5-3_函数——递归</h1>
-<p class="page-home"><a href="../main.html">返回</a></p>
+<h1 class="page-title">字典树(tier)、0-1字典树（链表实现）</h1>
+<p class="page-home"><a href="../../main.html">返回</a></p>
 </header>
 
-<h1>知识点</h1>
-<p>教材讲得挺好的，不过或许有些不好理解</p>
-<h1>习题1</h1>
-<p>略</p>
-<h1>习题2</h1>
-<p>略</p>
-<h1>汉诺塔问题</h1>
-<p><a href="https://zh.wikipedia.org/wiki/%E6%B1%89%E8%AF%BA%E5%A1%94" target="_blank" rel="noopener">汉诺塔 - 维基百科，自由的百科全书</a>
-以 <a href="https://zh.wikipedia.org/wiki/C%2B%2B" title="C++" target="_blank" rel="noopener">C++</a> 语言实现：</p>
-<pre><code class="language-c"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
-<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
-
-<span class="kt">void</span><span class="w"> </span><span class="nf">Towers</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="kt">char</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="kt">char</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="p">){</span><span class="w"> </span><span class="c1">//目标：将n个盘 a-&gt;b-&gt;c</span>
-<span class="w">	</span><span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">==</span><span class="mi">1</span><span class="p">){</span>
-<span class="w">		</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;Move disk &quot;</span><span class="o">&lt;&lt;</span><span class="n">n</span><span class="o">&lt;&lt;</span><span class="s">&quot; from&quot;</span><span class="o">&lt;&lt;</span><span class="n">a</span><span class="o">&lt;&lt;</span><span class="s">&quot; to &quot;</span><span class="o">&lt;&lt;</span><span class="n">c</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
-<span class="w">	</span><span class="p">}</span>
-<span class="w">	</span><span class="k">else</span><span class="p">{</span>
-<span class="w">		</span><span class="n">Towers</span><span class="p">(</span><span class="n">n</span><span class="mi">-1</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">b</span><span class="p">);</span><span class="w"> </span><span class="c1">// 将n-1个盘 a-&gt;b（经过c）</span>
-<span class="w">		</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;Move disk &quot;</span><span class="o">&lt;&lt;</span><span class="n">n</span><span class="o">&lt;&lt;</span><span class="s">&quot; from&quot;</span><span class="o">&lt;&lt;</span><span class="n">a</span><span class="o">&lt;&lt;</span><span class="s">&quot; to &quot;</span><span class="o">&lt;&lt;</span><span class="n">c</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="c1">//将底下的1个盘 a-&gt;c</span>
-<span class="w">		</span><span class="n">Towers</span><span class="p">(</span><span class="n">n</span><span class="mi">-1</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">c</span><span class="p">);</span><span class="w"> </span><span class="c1">//将那n-1个盘 b-&gt;c (经过a）</span>
-<span class="w">	</span><span class="p">}</span>
-<span class="p">}</span>
-<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
-<span class="w">	</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
-<span class="w">	</span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="p">;</span>
-<span class="w">	</span><span class="n">Towers</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="sc">&#39;A&#39;</span><span class="p">,</span><span class="sc">&#39;B&#39;</span><span class="p">,</span><span class="sc">&#39;C&#39;</span><span class="p">);</span>
-<span class="w">	</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
-<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre><nav class="page-nav"><a class="nav-prev" href="5-2_%E5%87%BD%E6%95%B0%E2%80%94%E2%80%94%E5%A2%9E%E9%87%8F%E5%BC%8F%E5%BC%80%E5%8F%91.html" title="5-2_函数——增量式开发">&larr; 上一节</a><a class="nav-home" href="../main.html">返回</a></nav>
+<p><a href="https://www.luogu.com.cn/problem/P4551" target="_blank" rel="noopener">P4551 最长异或路径 - 洛谷</a>
+<a href="https://www.bilibili.com/video/BV1iazGB4ERs/?vd_source=ae779efe458301fec2a5f20513623287" target="_blank" rel="noopener">3 分钟搞懂字典树_哔哩哔哩_bilibili</a></p>
+<h1>一个数用二进制表示时，可以视为一个字符串，然后用字典树。</h1>
+<nav class="page-nav"><a class="nav-home" href="../../main.html">返回</a></nav>
 </main>
 </body>
 </html>

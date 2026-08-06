@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>目录</title>
+<title>5-2_函数——增量式开发</title>
 <style>
 :root {
   --text: #1f2937;
@@ -230,15 +230,50 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <body>
 <main class="page">
 <header class="page-header">
-<h1 class="page-title">目录</h1>
-<p class="page-home"><a href="../main.html">返回</a></p>
+<h1 class="page-title">5-2_函数——增量式开发</h1>
+<p class="page-home"><a href="../../main.html">返回</a></p>
 </header>
 
-<ul>
-<li><a href="%E5%B0%8F%E9%A1%B9%E7%9B%AE_matrix.html">小项目_matrix</a></li>
-<li></li>
-</ul>
-<nav class="page-nav"><a class="nav-home" href="../main.html">返回</a></nav>
+<p>除了教材的例子，我们可以把要实现的东西作为一个类，类里面放变量（性质）和函数（方法）</p>
+<p>例如：</p>
+<pre><code class="language-c"><span class="n">class</span><span class="w"> </span><span class="n">Enemy</span><span class="p">;</span>
+<span class="n">class</span><span class="w"> </span><span class="n">Game1</span><span class="p">{</span><span class="w"> </span><span class="c1">//class Game是声明，大括号里面是定义的内容。结构体struct也是这样，和class同源。不同之处：struct默认public，class默认private.</span>
+<span class="c1">// game1.h实现的内容</span>
+<span class="w">    </span><span class="c1">//实体</span>
+<span class="w">    </span><span class="n">Gui</span><span class="w"> </span><span class="n">gui</span><span class="p">;</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="n">Enemy</span><span class="o">*&gt;</span><span class="w"> </span><span class="n">enemies</span><span class="p">;</span>
+<span class="w">	    </span><span class="c1">//计时器</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">cycle</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">bombertick</span><span class="p">;</span>
+<span class="n">public</span><span class="o">:</span>
+<span class="w">	</span><span class="n">Game</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">_row</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">_col</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">_tick</span><span class="p">);</span>
+<span class="w">    </span><span class="o">~</span><span class="n">Game</span><span class="p">();</span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">spawnEnemy</span><span class="p">();</span>
+<span class="c1">//more..........</span>
+
+<span class="c1">// game1.C实现的内容</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">Game1::spawnEnemy</span><span class="p">(){</span><span class="c1">//补足敌人</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cycle</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="p">(</span><span class="mi">7</span><span class="o">*</span><span class="n">tick</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">){</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">gunboatCount</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">maxgunboat</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">spawnObjects</span><span class="p">(</span><span class="s">&quot;Gunboat&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="n">gunboatCount</span><span class="o">++</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">destroyerCount</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">maxdestroyer</span><span class="p">){</span>
+<span class="w">            </span><span class="n">spawnObjects</span><span class="p">(</span><span class="s">&quot;Destroyer&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="n">destroyerCount</span><span class="o">++</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cruiserCount</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">maxcruiser</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">spawnObjects</span><span class="p">(</span><span class="s">&quot;Cruiser&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="n">cruiserCount</span><span class="o">++</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+<span class="c1">//more and more..........</span>
+<span class="p">};</span>
+
+<span class="c1">//如果要实现多游戏切换，可以考虑再加一个类game2，然后实现一个gameloader选择一个游戏（其实就是array里面存 指向类的实例的指针，用的时候调用就行</span>
+</code></pre><p>为了管理方便 : ) ，当然也可以把函数的实现和变量的定义分开来写（见上文注释）</p>
+<nav class="page-nav"><a class="nav-prev" href="../3_3/body.html" title="3-3_函数——参数的传递">&larr; 上一节</a><a class="nav-home" href="../../main.html">返回</a><a class="nav-next" href="../5_3/body.html" title="5-3_函数——递归">下一节 &rarr;</a></nav>
 </main>
 </body>
 </html>

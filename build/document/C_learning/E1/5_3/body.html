@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>cpp的类—this指针</title>
+<title>5-3_函数——递归</title>
 <style>
 :root {
   --text: #1f2937;
@@ -230,37 +230,40 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 <body>
 <main class="page">
 <header class="page-header">
-<h1 class="page-title">cpp的类—this指针</h1>
-<p class="page-home"><a href="../main.html">返回</a></p>
+<h1 class="page-title">5-3_函数——递归</h1>
+<p class="page-home"><a href="../../main.html">返回</a></p>
 </header>
 
-<h2>什么是 <code>this</code> 指针？</h2>
-<p>简单来说，<code>this</code> 指针就是一个<strong>隐形的“自己”</strong>。</p>
-<p>在 C++ 中，一个类（或结构体）可以实例化出成千上万个对象。为了节省内存，所有对象是<strong>共享同一份成员函数代码</strong>的。那么问题来了：当一个成员函数被调用时，它怎么知道是谁在调用它？</p>
-<pre><code class="language-cpp"><span class="k">class</span><span class="w"> </span><span class="nc">Player</span><span class="w"> </span><span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">hp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
-<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="nf">takeDamage</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">damage</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">// 编译器实际上看它是这样的：this-&gt;hp -= damage;</span>
-<span class="w">        </span><span class="n">hp</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="n">damage</span><span class="p">;</span><span class="w"> </span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">};</span>
+<h1>知识点</h1>
+<p>教材讲得挺好的，不过或许有些不好理解</p>
+<h1>习题1</h1>
+<p>略</p>
+<h1>习题2</h1>
+<p>略</p>
+<h1>汉诺塔问题</h1>
+<p><a href="https://zh.wikipedia.org/wiki/%E6%B1%89%E8%AF%BA%E5%A1%94" target="_blank" rel="noopener">汉诺塔 - 维基百科，自由的百科全书</a>
+以 <a href="https://zh.wikipedia.org/wiki/C%2B%2B" title="C++" target="_blank" rel="noopener">C++</a> 语言实现：</p>
+<pre><code class="language-c"><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="n">using</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">std</span><span class="p">;</span>
 
-<span class="n">Player</span><span class="w"> </span><span class="n">p1</span><span class="p">;</span>
-<span class="n">Player</span><span class="w"> </span><span class="n">p2</span><span class="p">;</span>
-
-<span class="n">p1</span><span class="p">.</span><span class="n">takeDamage</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span><span class="w"> </span><span class="c1">// 怎么知道扣的是 p1 的血而不是 p2 的？</span>
-</code></pre><p>另一个理解：python 的类里面的函数传参、实例属性强制(显式)写<code>self</code>（不写self的属性是类属性，共用于一个类的所有实例，一个实例改了这个类属性，别的也会跟着改（你猜我怎么知道的）</p>
-<p>当你调用 <code>p1.takeDamage(20)</code> 时，编译器在幕后偷偷做了一件事：它把 <code>p1</code> 的地址作为一个隐藏参数传给了函数。这个隐藏的参数，在函数内部就叫做 <strong><code>this</code> 指针</strong>。(依据：<code>___________</code>)</p>
-<ul>
-<li><strong>核心结论</strong>：<code>this</code> 是一个指向“当前调用该函数的对象”的指针。谁调用了这个函数，<code>this</code> 就指向谁。</li>
-</ul>
-<p>如果你写 this.hp，编译器会非常死板地理解为：“你想找 this 这个指针变量内部自带的 hp 属性。”</p>
-<p>但 this 只是一个普通的指针（类似一个 64 位的内存地址数字）(根本不是结构体），它内部根本没有一个叫 hp 的变量，于是编译器就会无情地报错：</p>
-<pre><code class="language-bash">........
-</code></pre><h1>Acknowledgement</h1>
-<p>感谢<code>___Blossilve_R__</code>大大的建议嗷w</p>
-<nav class="page-nav"><a class="nav-home" href="../main.html">返回</a></nav>
+<span class="kt">void</span><span class="w"> </span><span class="nf">Towers</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="kt">char</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="kt">char</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="p">){</span><span class="w"> </span><span class="c1">//目标：将n个盘 a-&gt;b-&gt;c</span>
+<span class="w">	</span><span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">==</span><span class="mi">1</span><span class="p">){</span>
+<span class="w">		</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;Move disk &quot;</span><span class="o">&lt;&lt;</span><span class="n">n</span><span class="o">&lt;&lt;</span><span class="s">&quot; from&quot;</span><span class="o">&lt;&lt;</span><span class="n">a</span><span class="o">&lt;&lt;</span><span class="s">&quot; to &quot;</span><span class="o">&lt;&lt;</span><span class="n">c</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="w">	</span><span class="k">else</span><span class="p">{</span>
+<span class="w">		</span><span class="n">Towers</span><span class="p">(</span><span class="n">n</span><span class="mi">-1</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">b</span><span class="p">);</span><span class="w"> </span><span class="c1">// 将n-1个盘 a-&gt;b（经过c）</span>
+<span class="w">		</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="s">&quot;Move disk &quot;</span><span class="o">&lt;&lt;</span><span class="n">n</span><span class="o">&lt;&lt;</span><span class="s">&quot; from&quot;</span><span class="o">&lt;&lt;</span><span class="n">a</span><span class="o">&lt;&lt;</span><span class="s">&quot; to &quot;</span><span class="o">&lt;&lt;</span><span class="n">c</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span><span class="w"> </span><span class="c1">//将底下的1个盘 a-&gt;c</span>
+<span class="w">		</span><span class="n">Towers</span><span class="p">(</span><span class="n">n</span><span class="mi">-1</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">c</span><span class="p">);</span><span class="w"> </span><span class="c1">//将那n-1个盘 b-&gt;c (经过a）</span>
+<span class="w">	</span><span class="p">}</span>
+<span class="p">}</span>
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	</span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">	</span><span class="n">cin</span><span class="o">&gt;&gt;</span><span class="n">n</span><span class="p">;</span>
+<span class="w">	</span><span class="n">Towers</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="sc">&#39;A&#39;</span><span class="p">,</span><span class="sc">&#39;B&#39;</span><span class="p">,</span><span class="sc">&#39;C&#39;</span><span class="p">);</span>
+<span class="w">	</span><span class="n">cout</span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">endl</span><span class="p">;</span>
+<span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre><nav class="page-nav"><a class="nav-prev" href="../5_2/body.html" title="5-2_函数——增量式开发">&larr; 上一节</a><a class="nav-home" href="../../main.html">返回</a></nav>
 </main>
 </body>
 </html>
