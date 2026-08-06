@@ -1,0 +1,35 @@
+
+# 知识点
+教材讲得挺好的，不过或许有些不好理解
+# 习题1
+略
+
+# 习题2
+略
+
+# 汉诺塔问题
+[汉诺塔 - 维基百科，自由的百科全书](https://zh.wikipedia.org/wiki/%E6%B1%89%E8%AF%BA%E5%A1%94)
+以 [C++](https://zh.wikipedia.org/wiki/C%2B%2B "C++") 语言实现：
+
+```c
+#include <iostream>
+using namespace std;
+
+void Towers(int n,char a,char b,char c){ //目标：将n个盘 a->b->c
+	if(n==1){
+		cout<<"Move disk "<<n<<" from"<<a<<" to "<<c<<endl;
+	}
+	else{
+		Towers(n-1,a,c,b); // 将n-1个盘 a->b（经过c）
+		cout<<"Move disk "<<n<<" from"<<a<<" to "<<c<<endl; //将底下的1个盘 a->c
+		Towers(n-1,b,a,c); //将那n-1个盘 b->c (经过a）
+	}
+}
+int main(int argc, char *argv[]) {
+	int n;
+	cin>>n;
+	Towers(n,'A','B','C');
+	cout<< endl;
+	return 0;
+}
+```

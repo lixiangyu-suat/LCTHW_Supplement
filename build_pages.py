@@ -25,13 +25,11 @@ except Exception:
 
 
 ROOT = Path(__file__).resolve().parent
-BUILD = ROOT / "build"
-IMGS_SRC = ROOT / "imgs"
+SOURCE = ROOT / "source"
+BUILD = ROOT / "build" / "html"
+IMGS_SRC = SOURCE / "imgs"
 MAIN_REL = Path("main.md")
 HOME_TITLE = "讲义首页"
-
-EXCLUDED_PARTS = {"admin", ".git", ".obsidian", "build"}
-
 
 TEMPLATE = """<!DOCTYPE html>
 <html lang="zh-CN">
@@ -238,10 +236,8 @@ class LectureRenderer(mistune.HTMLRenderer):
 
 def discover_pages():
     pages = []
-    for path in ROOT.rglob("*.md"):
-        rel = path.relative_to(ROOT)
-        if any(part in EXCLUDED_PARTS for part in rel.parts):
-            continue
+    for path in SOURCE.rglob("*.md"):
+        rel = path.relative_to(SOURCE)
         pages.append(rel)
     return pages
 
@@ -280,7 +276,7 @@ def read_text(path):
 def update_source_footer(rel, footer):
     if rel == MAIN_REL:
         return
-    path = ROOT / rel
+    path = SOURCE / rel
     text = read_text(path)
     newline = "\r\n" if "\r\n" in text else "\n"
     lines = [line.rstrip("\r") for line in text.rstrip("\r\n").split("\n")]
@@ -526,7 +522,7 @@ def main(targets=None):
         if full_build and rel != MAIN_REL:
             update_source_footer(rel, footer)
 
-        text = read_text(ROOT / rel)
+        text = read_text(SOURCE / rel)
         if full_build and rel != MAIN_REL:
             text = strip_appended_footer(text)
         text = preprocess_wikis(text, rel, page_map)

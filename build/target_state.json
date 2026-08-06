@@ -1,0 +1,50 @@
+{
+  "3-3_函数——参数的传递": {
+    "fingerprint": "d72b1da2b045ad4518a4db060be3fc077591782469edffa5441cade087303119",
+    "src": "E1-Linux C编程一站式学习/3-3_函数——参数的传递.md"
+  },
+  "5-2_函数——增量式开发": {
+    "fingerprint": "fba0445c5b117d170e881a9658dd179fa35a86defaff52c37355af2766184c27",
+    "src": "E1-Linux C编程一站式学习/5-2_函数——增量式开发.md"
+  },
+  "5-3_函数——递归": {
+    "fingerprint": "124db520d5cec2bb5f30c4e89be37913d1f53feed7f8c8695d04dac51a518f84",
+    "src": "E1-Linux C编程一站式学习/5-3_函数——递归.md"
+  },
+  "练习15：指针": {
+    "fingerprint": "6e111570937f970d726bb5745c3012b642341dca572c9fa560d22c6b4bd98bab",
+    "src": "E4-笨方法学C/练习15：指针.md"
+  },
+  "练习16：C语言的结构体": {
+    "fingerprint": "acd1a129398141de51afbd47c8acfcc8051a11c2ec15bd18f684f58b23c3db52",
+    "src": "E4-笨方法学C/练习16：C语言的结构体.md"
+  },
+  "练习28：How To Make ファイル": {
+    "fingerprint": "e37a7898e666df844507ee8146af810f52d3d4269a02b9235bdbaa662476109f",
+    "src": "E4-笨方法学C/练习28：How To Make ファイル.md"
+  },
+  "cpp的类—this指针": {
+    "fingerprint": "7449f492463d5feaf2178d4b03b362238befe0f030dc59117add497c1f55d97e",
+    "src": "Else/cpp的类—this指针.md"
+  },
+  "F6的diffset 与 二分思想": {
+    "fingerprint": "49c6e1b6f59f054cf2b1b28f70c858993baeac055ce0686ee4543fa023b43c41",
+    "src": "Else/F6的diffset 与 二分思想.md"
+  },
+  "字典树(tier)、0-1字典树（链表实现）": {
+    "fingerprint": "703ae095a95324a0c84badd05175aae33b9cc6126103ff53458af4a9589c973d",
+    "src": "Else/字典树(tier)、0-1字典树（链表实现）.md"
+  },
+  "小项目_matrix": {
+    "fingerprint": "431f321505d87c9bd839d3faf0320451b9fffb58882cf08e0080d03417cfd203",
+    "src": "Else/小项目_matrix.md"
+  },
+  "目录": {
+    "fingerprint": "c408c1ebdb48499abf6d1c0fe5309fd6687ea9261ff74cd4af5b91e97515c3c6",
+    "src": "Else/目录.md"
+  },
+  "main": {
+    "fingerprint": "b48f0ef51226bf29b85fabd3703d917d6c1e58cd4694ca665d18c43498087621",
+    "src": "main.md"
+  }
+}

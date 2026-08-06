@@ -44,3 +44,5 @@ p1.takeDamage(20); // 怎么知道扣的是 p1 的血而不是 p2 的？
 # Acknowledgement
 
 感谢`___Blossilve_R__`大大的建议嗷w
+
+[[main|返回]]
