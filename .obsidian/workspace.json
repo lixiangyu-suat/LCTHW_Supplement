@@ -4,53 +4,20 @@
     "type": "split",
     "children": [
       {
-        "id": "a4ff1b3939eef32a",
+        "id": "9e2b5d5d7b54aac0",
         "type": "tabs",
         "children": [
           {
-            "id": "f7218d8f03670cbc",
+            "id": "e954f704282f7bb3",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "未归类/F6的diffset 与 二分思想.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "F6的diffset 与 二分思想"
-            }
-          },
-          {
-            "id": "3e86fe4777ee07a3",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "admin/讲义制作提纲.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "讲义制作提纲"
-            }
-          },
-          {
-            "id": "72de3f0b7411ddaf",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "admin/target.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "target"
+              "title": "新标签页"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -214,25 +181,34 @@
       "bases:新建数据库": false
     }
   },
-  "active": "a87229bf48b68f73",
+  "active": "e954f704282f7bb3",
   "lastOpenFiles": [
-    "admin/讲义制作提纲.md",
+    "admin/Cmake.md",
+    "E1-Linux C编程一站式学习/章节1-9/3-3_函数——参数的传递.md",
+    "E4-笨方法学C/练习15：指针.md",
+    "main.md",
     "如何食用(temp).md",
+    "imgs/Pasted image 20260706085943.png",
+    "imgs",
+    "Else/目录.md",
+    "Else/小项目_matrix.md",
+    "Else/字典树(tier)、0-1字典树（链表实现）.md",
+    "admin/欢迎.md",
+    "E1-Linux C编程一站式学习/章节1-9/5-3_函数——递归.md",
+    "E1-Linux C编程一站式学习/章节1-9/5-2_函数——增量式开发.md",
+    "admin/target.md",
+    "E1-Linux C编程一站式学习/章节1-5.md",
+    "E1-Linux C编程一站式学习/章节1-9",
+    "admin/讲义制作提纲.md",
     "欢迎.md",
     "admin",
-    "未归类/cpp的类—this指针.md",
-    "未归类/字典树(tier)、0-1字典树（链表实现）.md",
+    "Else/cpp的类—this指针.md",
     "E4-笨方法学C/练习28：How To Make ファイル.md",
-    "未归类/F6的diffset 与 二分思想.md",
-    "未归类/小项目1.md",
-    "E4-笨方法学C/练习15：指针.md",
+    "Else/F6的diffset 与 二分思想.md",
     "E4-笨方法学C/练习16：C语言的结构体.md",
-    "E1-Linux C编程一站式学习/章节1-5.md",
-    "admin/target.md",
-    "Pasted image 20260714033940.png",
-    "Pasted image 20260714033919.png",
-    "未归类",
-    "Pasted image 20260706085943.png",
+    "imgs/Pasted image 20260714033940.png",
+    "imgs/Pasted image 20260714033919.png",
+    "Else",
     "extra",
     "E1-Linux C编程一站式学习",
     "E4-笨方法学C"
