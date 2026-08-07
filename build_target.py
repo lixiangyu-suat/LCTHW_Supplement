@@ -9,6 +9,8 @@ SOURCE_DIR = Path("source")
 BUILD_DIR = Path("build/document")
 AUTHOR = "SnowWolf"
 
+ignore_docs = ["main.md", "目录_else.md", "example.md"]
+
 def copy_image(img_name, target_resource_folder):
     """辅助函数：从 source 寻找图片并复制到指定 resource 文件夹"""
     src_img = SOURCE_DIR / "imgs" / img_name
@@ -25,7 +27,7 @@ def build_docs():
     for md_path in SOURCE_DIR.rglob("*.md"):
         
         # 排除掉不需要单独成页的文件和管理文件夹
-        if md_path.name in ["main.md", "目录_else.md", "example.md"] or "admin" in md_path.parts:
+        if md_path.name in ignore_docs or "admin" in md_path.parts:
             continue
 
         file_stem = md_path.stem
@@ -43,13 +45,20 @@ def build_docs():
             img_name = match.group(1)
             copy_image(img_name, resource_folder)
             
-            # 【修复】使用相对路径 `resource/{img_name}` 适配网页渲染
-            return f"""<br>
-<p align="center">
-  <img src="resource/{img_name}" alt="{img_name}" width="100%" />
-</p>
-<br>"""
+            # 使用 \n 结合隐式字符串拼接，既不会产生多余的缩进，又保持了代码的可读性
+            return (f'<br>\n<p align="center">\n'
+                    f'  <img src="resource/{img_name}" alt="{img_name}" width="100%" />\n'
+                    f'</p>\n<br>')
 
+        # 5. 替换超链接：把 [content](link) 变成 <a href="link">content</a>
+        def replace_obsidian_weblink(match):
+            text = match.group(1)
+            url = match.group(2)
+            return f'<a href="{url}">{text}</a>'
+
+        # 使用正则匹配标准 Markdown 链接。
+        # (?<!!) 是一个负向先行断言，确保我们只匹配普通的 [text](url)，而不误伤图片 ![text](url)
+        content = re.sub(r'(?<!!)\[([^\]]+)\]\(([^)]+)\)', replace_obsidian_weblink, content)
         # 替换文档内的图片链接
         content = re.sub(r'!\[\[([^\]]+)\]\]', replace_obsidian_img, content)
 
